@@ -1,16 +1,16 @@
-BOARDPACK 2.0 — IMAGE BOARD EXPORTER
+BOARDPACK 2.0 — PINTEREST IMAGE EXPORTER FOR CHROME
 
 INSTALL / UPDATE
-Extract this ZIP. Open vivaldi://extensions, enable Developer mode and choose Load unpacked, selecting the boardpack folder. To update, replace the files in the existing extension folder and click Reload.
+Extract this ZIP. Open chrome://extensions, enable Developer mode and choose Load unpacked, selecting the boardpack folder. To update, replace the files in the existing extension folder and click Reload.
 
 PRIVATE BOARDS
-Open the board while signed into Pinterest and wait for pins to appear. Click BoardPack, then Scan open board. You can close the popup and switch tabs. Keep the board tab open and do not navigate it elsewhere. Scan pasted link opens a dedicated inactive tab using your Vivaldi profile.
+Open the board while signed into Pinterest and wait for pins to appear. Click BoardPack, then Scan open board. You can close the popup and switch tabs. Keep the board tab open and do not navigate it elsewhere. Scan pasted link opens a dedicated inactive tab using your Chrome profile.
 
 AUTOMATIC STOP
 The scanner scrolls from the top, including scrollable board containers. At the bottom it waits for roughly 10 seconds of stable page height and image count with no visible loading indicator before stopping. Late-loading content resets this wait. If enabled, Download ZIP when scan finishes starts the export automatically. Limits of one hour or 15,000 images stop a scan as partial and do not automatically export. Complete capture depends on Pinterest loading every image.
 
 EXPORT
-Download ZIP exports the collected images after scanning has stopped. Found means unique image files, packed means images added to ZIPs, and ZIPs saved means completed browser downloads. Images, including available video thumbnails, are exported; video files are not scanned or downloaded. Exports split around 150 MB and include export-report.json. Stop preserves collected images or finishes a partial ZIP during downloading. Keep Vivaldi running.
+Download ZIP exports the collected images after scanning has stopped. Found means unique image files, packed means images added to ZIPs, and ZIPs saved means completed browser downloads. Images, including available video thumbnails, are exported; video files are not scanned or downloaded. Exports split around 150 MB and include export-report.json. Stop preserves collected images or finishes a partial ZIP during downloading. Keep Chrome running.
 
 VERSION 2.0
 Reference-inspired pastel background, white URL card, gradient download button, switches, colourful counters and rounded controls. Image-only workflow. Automatic bottom detection. Fixed the export completion error caused by an out-of-scope error variable.
