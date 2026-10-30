@@ -1,0 +1,11 @@
+const $=id=>document.getElementById(id);let state;
+async function send(type,extra={}){const r=await chrome.runtime.sendMessage({target:'background',type,...extra});if(!r?.ok)throw Error(r?.error||'Extension unavailable');return r.state}
+function render(s){if(!s)return;state=s;const busy=['loading','scanning','downloading','stopping'].includes(s.phase);$('start').disabled=busy;$('current').disabled=busy;$('stop').disabled=!busy||s.phase==='stopping';$('export').disabled=busy||!s.found;$('found').textContent=s.found;$('packed').textContent=s.packed;$('disk').textContent=s.zipsSaved;$('status').dataset.phase=s.phase;const message=s.message+(s.lastError?' Last failure: '+s.lastError:'');if($('status').textContent!==message)$('status').textContent=message;$('detail').textContent=`${(s.bytes/1048576).toFixed(1)} MB · ${s.failed} failed · ${s.downloadErrors} ZIP save errors`;$('progress').max=Math.max(1,s.found);$('progress').value=s.processed||0}
+async function refresh(){try{render(await send('status'))}catch(e){$('status').textContent=e.message}}
+$('start').onclick=async()=>{try{$('start').disabled=true;render(await send('start',{url:$('url').value,auto:$('auto').checked,original:$('original').checked}))}catch(e){$('status').textContent=e.message;$('start').disabled=false}};
+$('current').onclick=async()=>{try{$('current').disabled=true;render(await send('start-current',{auto:$('auto').checked,original:$('original').checked}))}catch(e){$('status').textContent=e.message;$('current').disabled=false}};
+$('stop').onclick=async()=>{try{render(await send('stop'))}catch(e){$('status').textContent=e.message}};
+$('export').onclick=async()=>{try{render(await send('export'))}catch(e){$('status').textContent=e.message}};
+$('show').onclick=async e=>{e.preventDefault();try{await send('show')}catch(e){$('status').textContent=e.message}};
+$('downloads').onclick=e=>{e.preventDefault();chrome.tabs.create({url:'chrome://downloads/'})};
+(async()=>{await refresh();if(state?.url)$('url').value=state.url;if(state?.auto!==undefined)$('auto').checked=state.auto;if(state?.original!==undefined)$('original').checked=state.original;if(!state?.url){const [tab]=await chrome.tabs.query({active:true,currentWindow:true});if(tab?.url&&/^https:\/\/([a-z0-9-]+\.)*pinterest\.(com|co\.uk)\//i.test(tab.url))$('url').value=tab.url}setInterval(refresh,1000)})();

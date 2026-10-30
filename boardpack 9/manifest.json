@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "BoardPack \u2014 Pinterest ZIP Exporter",
+  "version": "2.0.0",
+  "description": "Scan Pinterest board images, stop automatically, and export ZIPs with live counts.",
+  "permissions": [
+    "scripting",
+    "downloads",
+    "storage",
+    "alarms",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://*.pinterest.com/*",
+    "https://*.pinterest.co.uk/*",
+    "https://i.pinimg.com/*"
+  ],
+  "action": {
+    "default_title": "BoardPack",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}
